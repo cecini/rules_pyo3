@@ -30,7 +30,7 @@ def pyo3_extension(
     )
 
     native.genrule(
-        name = name_so,
+        name = name_so + "t",
         srcs = [":" + name_rs],
         outs = [name_so],
         visibility = visibility,
