@@ -1,7 +1,7 @@
 
 [package]
 name = "compile_with_bazel"
-version = "0.1.0"
+version = "0.3.0"
 authors = ["Ryan Butler <thebutlah@gmail.com>"]
 
 [lib]
@@ -17,14 +17,15 @@ path = "fake_lib.rs"
 # unindent = "0.1.4"
 # quote = { version = "1", default-features = false }
 # proc-macro2 = { version = "1", default-features = false }
-pyo3 = { version = "=0.11.1", features = ["extension-module"] }
+#pyo3 = { version = "=0.11.1", features = ["extension-module"] }
+pyo3 = { git = "https://github.com/PyO3/pyo3.git", rev = "8b618307872ea89a51f818e652b3845158c10e7a", features = ["extension-module", "nightly"] }
 
 # [dependencies.syn]
 # version = "1"
 # default-features = false
 # features = ["derive", "parsing", "printing", "clone-impls", "full", "extra-traits"]
 
-[raze]
+[package.metadata.raze]
 # Unique prefix for the generated workspace imports, to avoid conflict with other
 # raze workspaces
 gen_workspace_prefix = "rules_pyo3"
@@ -32,16 +33,23 @@ gen_workspace_prefix = "rules_pyo3"
 workspace_path = "//cargo"
 target = "x86_64-unknown-linux-gnu"
 genmode = "Remote"
+default_gen_buildrs = true
 
-[raze.crates.proc-macro2.'1.0.19']
+
+[package.metadata.raze.crates.proc-macro2.'1.0.19']
 gen_buildrs = true
 
-[raze.crates.pyo3.'0.11.1']
-data_attr = "glob([\"**/*.md\"])"
+
+[package.metadata.raze.crates.pyo3.'*']
+# from raze define 
+#data_attr = "glob([\"**/*.md\"])"
+data_attr = "glob([\"**\"])"
+# pass to rustc 
 additional_flags = [
+    # always
     "--cfg=py_sys_config=\\\"WITH_THREAD\\\"",
+    # alwasy 
     "--cfg=Py_3",
     "--cfg=Py_3_5",
     "--cfg=Py_3_6",
-    "--cfg=Py_3_7",
 ]

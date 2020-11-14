@@ -19,11 +19,11 @@ http_archive(
 
 http_archive(
     name = "io_bazel_rules_rust",
-    sha256 = "83727c04706f441f8dfbfd262b0c69e19764a93ce9700167b1bdcf5831bf65e8",
-    strip_prefix = "rules_rust-fdf9655ba95616e0314b4e0ebab40bb0c5fe005c",
+    sha256 = "b5d4d1c7609714dfef821355f40353c58aa1afb3803401b3442ed2355db9b0c7",
+    strip_prefix = "rules_rust-8d2b4eeeff9dce24f5cbb36018f2d60ecd676639",
     urls = [
-        # Master branch as of 2020-8-18
-        "https://github.com/bazelbuild/rules_rust/archive/fdf9655ba95616e0314b4e0ebab40bb0c5fe005c.zip",
+        # Master branch as of 2020-11-10
+        "https://github.com/bazelbuild/rules_rust/archive/8d2b4eeeff9dce24f5cbb36018f2d60ecd676639.tar.gz",
     ],
 )
 
@@ -49,3 +49,8 @@ bazel_version(name = "bazel_version")
 load("//cargo:crates.bzl", "rules_pyo3_fetch_remote_crates")
 
 rules_pyo3_fetch_remote_crates()
+
+
+load("@io_bazel_rules_rust//:workspace.bzl", "rust_workspace")
+
+rust_workspace()
