@@ -1,37 +1,37 @@
 workspace(name = "rules_pyo3")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
 
 ################
 # Python Rules #
 ################
 
-http_archive(
+git_repository(
     name = "rules_python",
-    sha256 = "b5668cde8bb6e3515057ef465a35ad712214962f0b3a314e551204266c7be90c",
-    strip_prefix = "rules_python-0.0.2",
-    url = "https://github.com/bazelbuild/rules_python/releases/download/0.0.2/rules_python-0.0.2.tar.gz",
+    commit = "3927c9bce90f629eb5ab08bbc99a3d3bda1d95c0",
+    remote = "https://github.com/ankitects/rules_python",
+    shallow_since = "1604408056 +1000",
 )
 
 ##############
 # Rust Rules #
 ##############
 
-http_archive(
+git_repository(
     name = "io_bazel_rules_rust",
-    sha256 = "b5d4d1c7609714dfef821355f40353c58aa1afb3803401b3442ed2355db9b0c7",
-    strip_prefix = "rules_rust-8d2b4eeeff9dce24f5cbb36018f2d60ecd676639",
-    urls = [
-        # Master branch as of 2020-11-10
-        "https://github.com/bazelbuild/rules_rust/archive/8d2b4eeeff9dce24f5cbb36018f2d60ecd676639.tar.gz",
-    ],
+    commit = "a364ded42d9788144cd26b6e98d6b4038753bfa9",
+    remote = "https://github.com/ankitects/rules_rust",
+    shallow_since = "1604550071 +1000",
 )
 
 http_archive(
     name = "bazel_skylib",
-    sha256 = "9a737999532daca978a158f94e77e9af6a6a169709c0cee274f0a4c3359519bd",
-    strip_prefix = "bazel-skylib-1.0.0",
-    url = "https://github.com/bazelbuild/bazel-skylib/archive/1.0.0.tar.gz",
+    sha256 = "97e70364e9249702246c0e9444bccdc4b847bed1eb03c5a3ece4f83dfe6abc44",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.0.2/bazel-skylib-1.0.2.tar.gz",
+        "https://github.com/bazelbuild/bazel-skylib/releases/download/1.0.2/bazel-skylib-1.0.2.tar.gz",
+    ],
 )
 
 load("@io_bazel_rules_rust//rust:repositories.bzl", "rust_repositories")
