@@ -42,4 +42,5 @@ def pyo3_extension(
         srcs = [],
         data = [name_so],
         visibility = visibility,
+        imports = ["."],
     )
