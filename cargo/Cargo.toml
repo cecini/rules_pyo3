@@ -18,7 +18,11 @@ path = "fake_lib.rs"
 # quote = { version = "1", default-features = false }
 # proc-macro2 = { version = "1", default-features = false }
 #pyo3 = { version = "=0.11.1", features = ["extension-module"] }
-pyo3 = { git = "https://github.com/PyO3/pyo3.git", rev = "8b618307872ea89a51f818e652b3845158c10e7a", features = ["extension-module", "nightly"] }
+#pyo3 = { git = "https://github.com/PyO3/pyo3.git", rev = "0696f03807dfe8afc16f8410152a06d0328cd50e", features = ["extension-module", "nightly"] }
+#pyo3 = { git = "https://github.com/cecini/pyo3.git", rev = "e0fc002ac42863222bbd74928c17238c830a84bf", features = ["extension-module", "nightly"] }
+#pyo3 = { git = "https://github.com/cecini/pyo3.git", branch = "fix", features = ["extension-module", "nightly"] }
+pyo3 = { git = "https://github.com/cecini/pyo3.git", rev = "cc4ff4b80eb769e8b788973dfb0f7f579b124d33", features = ["extension-module", "nightly"] }
+#pyo3= { git = "https://github.com/PyO3/pyo3.git", rev = "92b7a9736c9585883df5ec5bc01004caa7f65106", features = ["extension-module", "nightly"]}
 
 # [dependencies.syn]
 # version = "1"
@@ -29,9 +33,18 @@ pyo3 = { git = "https://github.com/PyO3/pyo3.git", rev = "8b618307872ea89a51f818
 # Unique prefix for the generated workspace imports, to avoid conflict with other
 # raze workspaces
 gen_workspace_prefix = "rules_pyo3"
+rust_rules_workspace_name = "io_bazel_rules_rust" 
+#rust_rules_workspace_name = "io_bazel_rules_rust" 
 # The WORKSPACE relative path to the Cargo.toml working directory.
 workspace_path = "//cargo"
-target = "x86_64-unknown-linux-gnu"
+package_aliases_dir = "cargo"
+targets = [
+    "x86_64-apple-darwin",
+#    "x86_64-apple-ios",
+    "x86_64-pc-windows-msvc",
+    "x86_64-unknown-linux-gnu",
+#    "aarch64-apple-ios",
+]
 genmode = "Remote"
 default_gen_buildrs = true
 
@@ -41,6 +54,7 @@ gen_buildrs = true
 
 
 [package.metadata.raze.crates.pyo3.'*']
+compile_data_attr = "glob([\"**/*.md\"])"
 # from raze define 
 #data_attr = "glob([\"**/*.md\"])"
 data_attr = "glob([\"**\"])"
@@ -52,4 +66,16 @@ additional_flags = [
     "--cfg=Py_3",
     "--cfg=Py_3_5",
     "--cfg=Py_3_6",
+    "-Ccodegen-units=256", 
+    "-Cdebug-assertions=yes",
+    "-Cdebuginfo=2", 
+    "-Cforce-frame-pointers=yes" ,
+    "-Cincremental=y",
+    "-Copt-level=0",
+    "-Coverflow-checks=y",
+    "-Cpanic=unwind", 
+    "-Crpath=no" ,
+    "-Clto=no",
+    "-Cforce-unwind-tables=yes",
+    "--cap-lints=allow",
 ]

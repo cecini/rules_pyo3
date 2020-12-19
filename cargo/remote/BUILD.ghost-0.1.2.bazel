@@ -37,6 +37,7 @@ rust_library(
     ],
     crate_root = "src/lib.rs",
     crate_type = "proc-macro",
+    data = [],
     edition = "2018",
     rustc_flags = [
         "--cap-lints=allow",
@@ -50,6 +51,6 @@ rust_library(
     deps = [
         "@rules_pyo3__proc_macro2__1_0_24//:proc_macro2",
         "@rules_pyo3__quote__1_0_7//:quote",
-        "@rules_pyo3__syn__1_0_48//:syn",
+        "@rules_pyo3__syn__1_0_54//:syn",
     ],
 )

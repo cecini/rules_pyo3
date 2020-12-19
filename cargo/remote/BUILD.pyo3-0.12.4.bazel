@@ -28,7 +28,8 @@ licenses([
     "notice",  # Apache-2.0 from expression "Apache-2.0"
 ])
 
-# Generated Targets# buildifier: disable=load-on-top
+# Generated Targets
+# buildifier: disable=load-on-top
 load(
     "@io_bazel_rules_rust//cargo:cargo_build_script.bzl",
     "cargo_build_script",
@@ -61,11 +62,13 @@ cargo_build_script(
         "cargo-raze",
         "manual",
     ],
-    version = "0.12.3",
+    version = "0.12.4",
     visibility = ["//visibility:private"],
     deps = [
     ],
 )
+
+# Unsupported target "bench_call" with type "bench" omitted
 
 # Unsupported target "bench_dict" with type "bench" omitted
 
@@ -94,13 +97,14 @@ rust_library(
     ],
     crate_root = "src/lib.rs",
     crate_type = "lib",
-    data = glob(["**"]),
+    data = [] + glob(["**"]),
+    compile_data = glob(["**/*.md"]),
     edition = "2018",
     proc_macro_deps = [
         "@rules_pyo3__ctor__0_1_16//:ctor",
         "@rules_pyo3__indoc__1_0_3//:indoc",
-        "@rules_pyo3__paste__1_0_3//:paste",
-        "@rules_pyo3__pyo3cls__0_12_3//:pyo3cls",
+        "@rules_pyo3__paste__1_0_4//:paste",
+        "@rules_pyo3__pyo3cls__0_12_4//:pyo3cls",
     ],
     rustc_flags = [
         "--cap-lints=allow",
@@ -108,18 +112,31 @@ rust_library(
         "--cfg=Py_3",
         "--cfg=Py_3_5",
         "--cfg=Py_3_6",
+        "-Ccodegen-units=256",
+        "-Cdebug-assertions=yes",
+        "-Cdebuginfo=2",
+        "-Cforce-frame-pointers=yes",
+        "-Cincremental=y",
+        "-Copt-level=0",
+        "-Coverflow-checks=y",
+        "-Cpanic=unwind",
+        "-Crpath=no",
+        "-Clto=no",
+        "-Cforce-unwind-tables=yes",
+        "--cap-lints=allow",
     ],
     tags = [
         "cargo-raze",
         "manual",
     ],
-    version = "0.12.3",
+    version = "0.12.4",
     # buildifier: leave-alone
     deps = [
         ":pyo3_build_script",
-        "@rules_pyo3__inventory__0_1_9//:inventory",
-        "@rules_pyo3__libc__0_2_80//:libc",
-        "@rules_pyo3__parking_lot__0_11_0//:parking_lot",
+        "@rules_pyo3__cfg_if__1_0_0//:cfg_if",
+        "@rules_pyo3__inventory__0_1_10//:inventory",
+        "@rules_pyo3__libc__0_2_81//:libc",
+        "@rules_pyo3__parking_lot__0_11_1//:parking_lot",
         "@rules_pyo3__unindent__0_1_7//:unindent",
     ],
 )

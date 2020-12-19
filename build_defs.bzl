@@ -7,6 +7,7 @@ def pyo3_extension(
         name,
         deps = [],
         visibility = None,
+	init = None,
         **kwargs):
     """
     Creates a PyO3 extension.
@@ -23,7 +24,7 @@ def pyo3_extension(
 
     rust_library(
         name = name_rs,
-        deps = ["@rules_pyo3//:pyo3"] + deps,
+        deps = ["@rules_pyo3_repo//:pyo3"] + deps,
         crate_type = "cdylib",
         visibility = ["//visibility:private"],
         **kwargs
@@ -39,7 +40,7 @@ def pyo3_extension(
 
     py_library(
         name = name,
-        srcs = [],
+	srcs = [init],
         data = [name_so],
         visibility = visibility,
         imports = ["."],
